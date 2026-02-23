@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+
+# swap / temp
+*.swp
+*.swo
+*~
+
+# logs
+*.log
+
+# direnv (never commit secrets)
+.envrc
+.direnv/
+
+# node / build junk (future-proof)
+node_modules/
+dist/

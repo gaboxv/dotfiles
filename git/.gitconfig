@@ -1,0 +1,15 @@
+# ~/.gitconfig
+[status]
+	showUntrackedFiles = all
+# Optional default identity (used only outside rPersonal/rWork)
+# Put it BEFORE the includes so includes can override it.
+[user]
+    name = Gabriel V
+    email = gabriel.vignolo@innovatrics.com
+
+[includeIf "gitdir:/Users/gabriel.vignolo/Documents/rPersonal/**"]
+    path = /Users/gabriel.vignolo/.gitconfig-personal
+
+[includeIf "gitdir:/Users/gabriel.vignolo/Documents/rWork/**"]
+    path = /Users/gabriel.vignolo/.gitconfig-work
+
