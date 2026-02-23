@@ -1,48 +1,91 @@
 # Dotfiles (GNU Stow)
 
-This repo manages my macOS dotfiles using **GNU Stow**.
+This repo manages my macOS environment using **GNU Stow**.
 
-## What’s included
+It versions:
+- zsh shell config
+- git config
+- iTerm2 UI configuration
+- Future Neovim (LazyVim) setup
 
-- **zsh**
-  - `~/.zshrc`
-- **git**
-  - `~/.gitconfig`
-- **direnv**
-  - Uses the zsh hook in `.zshrc`
-  - No global `~/.config/direnv` tracked yet
-- **nvim** (placeholder)
-  - `~/.config/nvim` (for future LazyVim setup)
-- **iterm** (placeholder)
-  - iTerm2 settings are not tracked yet (will be configured to load prefs from this repo)
+---
 
-## How it works
+## Structure
 
-Each folder is a “package” (e.g. `zsh/`, `git/`).  
-Running `stow <package>` creates symlinks into `$HOME`.
+Each folder is a Stow package:
 
-This repo includes a `.stowrc` so Stow always targets your home directory.
+- `zsh/` → ~/.zshrc
+- `git/` → ~/.gitconfig
+- `iterm/` → iTerm2 externalized preferences
+- `nvim/` → ~/.config/nvim (future LazyVim)
+- `direnv/` → reserved for future global direnv config
 
-## Setup on a new Mac (from scratch)
+`.stowrc` ensures Stow always targets `$HOME`.
 
-1) Install prerequisites:
-- Install Homebrew
-- Install Stow:
-  - `brew install stow`
+---
 
-2) Clone the repo:
-- `git clone <YOUR_REPO_SSH_URL> ~/Documents/rPersonal/dotfiles`
-- `cd ~/Documents/rPersonal/dotfiles`
+## How Stow Works
 
-3) Stow packages:
-- `stow zsh`
-- `stow git`
+From inside the repo:
 
-4) Reload shell:
-- Restart the terminal, or run: `exec zsh`
+    stow <package>
+
+Creates symlinks in your home directory.
+
+Example:
+
+    stow zsh
+    stow git
+
+---
+
+## iTerm2 Configuration
+
+iTerm2 is configured to:
+
+    Load settings from a custom folder
+
+Path:
+
+    ~/Documents/rPersonal/dotfiles/iterm
+
+This means:
+- iTerm reads from this repo
+- Any UI change updates `com.googlecode.iterm2.plist`
+- The configuration is portable across machines
+
+If setting up a new Mac, you must:
+
+1. Install iTerm2
+2. Open Settings → General → Settings
+3. Enable:
+       Load settings from a custom folder or URL
+4. Point to:
+       ~/Documents/rPersonal/dotfiles/iterm
+5. Set “Save changes” to Automatically
+
+---
+
+## Setup on a New Mac
+
+1. Install Homebrew
+2. Install Stow:
+       brew install stow
+3. Clone this repo:
+       git clone git@github.com:gaboxv/dotfiles.git ~/Documents/rPersonal/dotfiles
+4. cd into repo
+5. Run:
+       stow zsh
+       stow git
+6. Restart terminal
+
+Optional:
+- Enable iTerm external settings as described above
+
+---
 
 ## Notes
 
-- `direnv` is enabled via this line in `.zshrc`:
-  - `eval "$(direnv hook zsh)"`
-- `.envrc` files are intentionally **not** committed.
+- `.envrc` and `.direnv/` are intentionally ignored
+- `.DS_Store` is ignored
+- This setup assumes macOS
